@@ -38,12 +38,17 @@ public class Snake {
 		head_position().move( direction );
  	}
 
-	public void grow( Direction direction )
+	public void grow( Direction direction, boolean super_apple )
 	{
-		IntPair new_head_position = head_position().clone();
-		new_head_position.move( direction );
-		snake_body_tiles.add( 0, new_head_position );
- 	}
+        int growthAmount = super_apple ? 3 : 1;
+
+        while(growthAmount>0){
+            IntPair new_head_position = head_position().clone();
+            new_head_position.move( direction );
+            snake_body_tiles.add( 0, new_head_position );
+            growthAmount--;
+        }
+    }
 
 	public boolean is_snake_colliding( int board_width_in_tiles, int board_height_in_tiles )
 	{
@@ -59,8 +64,7 @@ public class Snake {
 	{
         for ( int i = length()-1; i > 1; i-- )
 		{
-			if ( position( i ).x == head_position().x &&
-                 position( i ).y == head_position().y )
+			if ( position( i ).x == head_position().x && position( i ).y == head_position().y )
 				return true;
 		}
 		return false;

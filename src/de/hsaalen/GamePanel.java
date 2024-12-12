@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private Image ball;
     private Image apple;
     private Image head;
+    private Image super_apple;
 
     public GamePanel(Game game) {
 
@@ -50,6 +51,9 @@ public class GamePanel extends JPanel implements ActionListener {
 
         ImageIcon iih = new ImageIcon("src/resources/head.png");
         head = iih.getImage();
+
+        ImageIcon iis = new ImageIcon("src/resources/super_apple.png");
+        super_apple = iis.getImage();
     }
 
 
@@ -73,7 +77,11 @@ public class GamePanel extends JPanel implements ActionListener {
     
     private void drawApple(Graphics g){
         IntPair apple_position_in_pixels = pixel_position_of_tile( game.apple_position );
-        g.drawImage(apple, apple_position_in_pixels.x, apple_position_in_pixels.y, this);
+        if(game.super_apple){
+            g.drawImage(super_apple, apple_position_in_pixels.x, apple_position_in_pixels.y, this);
+        } else {
+            g.drawImage(apple, apple_position_in_pixels.x, apple_position_in_pixels.y, this);
+        }
     }
 
     private void drawSnake(Graphics g){

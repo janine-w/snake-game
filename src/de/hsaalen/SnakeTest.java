@@ -43,8 +43,6 @@ public class SnakeTest
         IntPair init_pos = new IntPair(5, 5);
 		Snake snake = new Snake( 3, init_pos );
 		assertFalse( snake.is_colliding_with_itself() );		
-		snake.grow( Direction.up );
-		snake.grow( Direction.left );
 		snake.move( Direction.down );
 		assertTrue( snake.is_colliding_with_itself() );		
 	}

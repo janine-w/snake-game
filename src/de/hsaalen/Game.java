@@ -13,6 +13,7 @@ public class Game
 	public Direction direction = Direction.right;
 
     public boolean inGame = true;
+    public boolean super_apple = false;
 
 	public Game( ) 
 	{
@@ -27,9 +28,17 @@ public class Game
 
 	private void place_apple_at_random_location() 
 	{
+        super_apple = place_super_apple();
         int apple_x = (int) (Math.random() * width_in_tiles - 1);
         int apple_y = (int) (Math.random() * height_in_tiles - 1);
 		apple_position = new IntPair( apple_x, apple_y );
+    }
+
+    private boolean place_super_apple(){
+        if(Math.random() > 0.6){
+            return true;
+        }
+        return false;
     }
 
 	public void handle_round()
@@ -44,9 +53,8 @@ public class Game
 
 	private void checkApple() 
 	{
-        if ((snake.head_position().x == apple_position.x) && (snake.head_position().y == apple_position.y)) 
-		{
-			snake.grow( direction );
+        if ((snake.head_position().x == apple_position.x) && (snake.head_position().y == apple_position.y)) {
+            snake.grow( direction, super_apple);
             place_apple_at_random_location();
         }
     }

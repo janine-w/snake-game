@@ -8,7 +8,8 @@ public class SnakeTest
 	@Test
 	public void test_initialization()
 	{
-		Snake snake = new Snake( 3);
+        IntPair init_pos = new IntPair(5, 5);
+		Snake snake = new Snake( 3, init_pos);
 		assertEquals( snake.length(), 3 );
 
 		IntPair coordinate;
@@ -24,7 +25,8 @@ public class SnakeTest
 	@Test
 	public void test_move_snake()
 	{
-		Snake snake = new Snake( 3);
+        IntPair init_pos = new IntPair(5, 5);
+		Snake snake = new Snake( 3, init_pos);
 		snake.move( Direction.up );
 		snake.move( Direction.up );
 
@@ -38,7 +40,8 @@ public class SnakeTest
 	@Test
 	public void test_is_colliding_with_itself()
 	{
-		Snake snake = new Snake( 3 );
+        IntPair init_pos = new IntPair(5, 5);
+		Snake snake = new Snake( 3, init_pos );
 		assertFalse( snake.is_colliding_with_itself() );		
 		snake.grow( Direction.up );
 		snake.grow( Direction.left );
@@ -49,7 +52,8 @@ public class SnakeTest
 	@Test
 	public void test_is_outside_board()
 	{
-		Snake snake = new Snake( 3 );
+        IntPair init_pos = new IntPair(5, 5);
+		Snake snake = new Snake( 3, init_pos );
 		assertFalse( snake.is_outside_board( 30, 30 ) );		
 		for ( int i = 0; i < 10; i++ )
 			snake.move( Direction.left );

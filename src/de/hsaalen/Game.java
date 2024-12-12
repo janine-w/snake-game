@@ -6,6 +6,7 @@ public class Game
 	public final int width_in_tiles  = 30;
     public final int height_in_tiles = 30;
 	public final int initial_snake_size = 3;
+    public final IntPair initial_snake_position = new IntPair(5, 5); 
 
     public Snake snake;
     public IntPair apple_position; 
@@ -21,7 +22,7 @@ public class Game
 
 	public void place_snake_at_initial_location() 
 	{
-		snake = new Snake( initial_snake_size );
+		snake = new Snake( initial_snake_size, initial_snake_position );
 	}
 
 	private void place_apple_at_random_location() 

@@ -8,10 +8,10 @@ public class Snake {
 
     List<IntPair> snake_body_tiles;
 
-    public Snake( int initial_snake_size) 
+    public Snake( int initial_snake_size, IntPair intial_snake_position) 
     {
         allocate_memory();
-        place_at_initial_location( initial_snake_size );
+        place_at_initial_location( initial_snake_size, intial_snake_position );
     }
 
     private void allocate_memory()
@@ -19,14 +19,12 @@ public class Snake {
 		snake_body_tiles = new LinkedList<IntPair>();
 	}
 
-	public void place_at_initial_location( int initial_snake_size ) 
+	public void place_at_initial_location( int initial_snake_size, IntPair initial_snake_position) 
 	{
         for (int i = 0; i < initial_snake_size; i++) 
-		{
-            int x = 5 - i;
-            int y = 5;
-			IntPair new_snake_body_tile = new IntPair(x,y);
-			snake_body_tiles.add( new_snake_body_tile );
+		{   
+            IntPair new_snake_body_tile = new IntPair(initial_snake_position.x - i, initial_snake_position.y);
+			snake_body_tiles.add(new_snake_body_tile);
         }		
 	}
 

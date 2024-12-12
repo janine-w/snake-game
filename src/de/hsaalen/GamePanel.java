@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private Image apple;
     private Image head;
     private Image super_apple;
+    private Image obstacle;
 
     public GamePanel(Game game) {
 
@@ -54,6 +55,9 @@ public class GamePanel extends JPanel implements ActionListener {
 
         ImageIcon iis = new ImageIcon("src/resources/super_apple.png");
         super_apple = iis.getImage();
+
+        ImageIcon iio = new ImageIcon("src/resources/obstacle.png");
+        obstacle = iio.getImage();
     }
 
 
@@ -69,6 +73,7 @@ public class GamePanel extends JPanel implements ActionListener {
         if(game.inGame){
             drawApple(g);
             drawSnake(g);
+            drawObstacle(g);
             Toolkit.getDefaultToolkit().sync();
         } else {
             drawGameOver(g);
@@ -96,7 +101,14 @@ public class GamePanel extends JPanel implements ActionListener {
                 g.drawImage(ball, position_in_pixels.x, position_in_pixels.y, this);
             }
         }
-    }   
+    }
+
+    private void drawObstacle(Graphics g){
+        for (int i = 0; i < game.amount_obstacles; i++){
+            IntPair position_in_pixels = pixel_position_of_tile(game.obstacle_position(i));
+            g.drawImage(obstacle, position_in_pixels.x, position_in_pixels.y, this);
+        }
+    }
 
     private void drawGameOver(Graphics g) {
         

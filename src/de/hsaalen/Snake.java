@@ -50,13 +50,15 @@ public class Snake {
         }
     }
 
-	public boolean is_snake_colliding( int board_width_in_tiles, int board_height_in_tiles )
+	public boolean is_snake_colliding( int board_width_in_tiles, int board_height_in_tiles, List<IntPair> obstacles )
 	{
 		if ( is_colliding_with_itself() )
 			return true;	
         if ( is_outside_board( board_width_in_tiles, board_height_in_tiles ) )
             return true;			
-
+        if (is_colliding_with_obstacle(obstacles)){
+            return true;
+        }
 		return false;
 	}
 
@@ -82,6 +84,15 @@ public class Snake {
 			return true;
 		return false;
 	}
+
+    public boolean is_colliding_with_obstacle(List<IntPair>obstacles){
+        for(int i=0; i < obstacles.size(); i++){
+            if(obstacles.get(i).x == head_position().x && obstacles.get(i).y == head_position().y){
+                return true;
+            }
+        }
+        return false;
+    }
 
 	public int length() 
 	{

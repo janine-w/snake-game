@@ -5,14 +5,18 @@ import javax.swing.JFrame;
 
 public class SnakeApplication extends JFrame {
 
-    public SnakeApplication() {
+    Game game;
+    GamePanel panel;
 
-        initUI();
+    public SnakeApplication() {
+        game = new Game();
+        panel = new GamePanel(game);
+        initUI(panel);
     }
 
-    private void initUI() {
+    private void initUI(GamePanel panel) {
 
-        add(new GamePanel());
+        add(panel);
 
         setResizable(false);
         pack();
@@ -21,8 +25,6 @@ public class SnakeApplication extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
-
     public static void main(String[] args) {
 
         EventQueue.invokeLater(() -> {

@@ -1,7 +1,5 @@
 package de.hsaalen;
 
-import java.util.List;
-import java.util.LinkedList;
 
 public class Game 
 {
@@ -23,13 +21,13 @@ public class Game
 
 	public void place_snake_at_initial_location() 
 	{
-		snake = new Snake( 3 );
+		snake = new Snake( initial_snake_size );
 	}
 
 	private void place_apple_at_random_location() 
 	{
-        int apple_x = (int) (Math.random() * maximum_tile_index_x());
-        int apple_y = (int) (Math.random() * maximum_tile_index_y());
+        int apple_x = (int) (Math.random() * width_in_tiles - 1);
+        int apple_y = (int) (Math.random() * height_in_tiles - 1);
 		apple_position = new IntPair( apple_x, apple_y );
     }
 
@@ -59,17 +57,8 @@ public class Game
 
     private void checkCollision()
 	{
-		if ( snake.is_snake_colliding( width_in_tiles, height_in_tiles ) )
+		if ( snake.is_snake_colliding( width_in_tiles, height_in_tiles ) ){
 			inGame = false;
-   }
-
-    public int maximum_tile_index_x()
-	{
-		return width_in_tiles - 1;
-	}
-
-    public int maximum_tile_index_y()
-	{
-		return height_in_tiles - 1;
-	}
+        }
+    }
 }

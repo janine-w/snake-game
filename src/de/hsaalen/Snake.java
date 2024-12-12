@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public class Snake {
 
 
-    List<IntPair> positions;
+    List<IntPair> snake_body_tiles;
 
     public Snake( int initial_snake_size) 
     {
@@ -16,7 +16,7 @@ public class Snake {
 
     private void allocate_memory()
 	{
-		positions = new LinkedList<IntPair>();
+		snake_body_tiles = new LinkedList<IntPair>();
 	}
 
 	public void place_at_initial_location( int initial_snake_size ) 
@@ -25,8 +25,8 @@ public class Snake {
 		{
             int x = 5 - i;
             int y = 5;
-			IntPair new_position = new IntPair(x,y);
-			positions.add( new_position );
+			IntPair new_snake_body_tile = new IntPair(x,y);
+			snake_body_tiles.add( new_snake_body_tile );
         }		
 	}
 
@@ -44,15 +44,15 @@ public class Snake {
 	{
 		IntPair new_head_position = head_position().clone();
 		new_head_position.move( direction );
-		positions.add( 0, new_head_position );
+		snake_body_tiles.add( 0, new_head_position );
  	}
 
 	public boolean is_snake_colliding( int board_width_in_tiles, int board_height_in_tiles )
 	{
 		if ( is_colliding_with_itself() )
 			return true;	
-            if ( is_outside_board( board_width_in_tiles, board_height_in_tiles ) )
-			return true;			
+        if ( is_outside_board( board_width_in_tiles, board_height_in_tiles ) )
+            return true;			
 
 		return false;
 	}
@@ -83,12 +83,12 @@ public class Snake {
 
 	public int length() 
 	{
-		return positions.size();
+		return snake_body_tiles.size();
 	}
 
 	public IntPair position( int index )
 	{
-		return positions.get( index );
+		return snake_body_tiles.get( index );
 	}
 
 	public IntPair head_position()
@@ -98,7 +98,7 @@ public class Snake {
 
 	public String toString() 
 	{
-		String result = "Snake" + positions.toString();
+		String result = "Snake" + snake_body_tiles.toString();
 		return result;
 	}
 }

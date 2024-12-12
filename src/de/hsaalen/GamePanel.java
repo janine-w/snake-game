@@ -62,35 +62,37 @@ public class GamePanel extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        doDrawing(g);
+        if(game.inGame){
+            drawGame(g);
+        } else {
+            gameOver(g);
+        }
     }
     
-    private void doDrawing(Graphics g) {
-        
-        if (game.inGame) 
-		{
-			IntPair apple_position_in_pixels = pixel_position_of_tile( game.apple_position );
-
-            g.drawImage(apple, apple_position_in_pixels.x, apple_position_in_pixels.y, this);
-            for (int i = 0; i < game.snake.length(); i++) 
-			{
-				IntPair position_in_pixels = pixel_position_of_tile( game.snake.position(i) );
-                if (i == 0) 
-				{
-                    g.drawImage(head, position_in_pixels.x, position_in_pixels.y, this);
-                } else 
-				{
-                    g.drawImage(ball, position_in_pixels.x, position_in_pixels.y, this);
-                }
-            }
-
-            Toolkit.getDefaultToolkit().sync();
-
-        } else {
-
-            gameOver(g);
-        }        
+    private void drawGame(Graphics g){
+        drawApple(g);
+        drawSnake(g);
+        Toolkit.getDefaultToolkit().sync();
     }
+
+    private void drawApple(Graphics g){
+        IntPair apple_position_in_pixels = pixel_position_of_tile( game.apple_position );
+        g.drawImage(apple, apple_position_in_pixels.x, apple_position_in_pixels.y, this);
+    }
+
+    private void drawSnake(Graphics g){
+        for (int i = 0; i < game.snake.length(); i++) 
+        {
+            IntPair position_in_pixels = pixel_position_of_tile( game.snake.position(i) );
+            if (i == 0) 
+            {
+                g.drawImage(head, position_in_pixels.x, position_in_pixels.y, this);
+            } else 
+            {
+                g.drawImage(ball, position_in_pixels.x, position_in_pixels.y, this);
+            }
+        }
+    }   
 
     private void gameOver(Graphics g) {
         

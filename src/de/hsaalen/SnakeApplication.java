@@ -3,16 +3,16 @@ package de.hsaalen;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 
-public class SnakeGame extends JFrame {
+public class SnakeApplication extends JFrame {
 
-    public SnakeGame() {
+    public SnakeApplication() {
 
         initUI();
     }
 
     private void initUI() {
 
-        add(new Board());
+        add(new GamePanel());
 
         setResizable(false);
         pack();
@@ -26,7 +26,7 @@ public class SnakeGame extends JFrame {
     public static void main(String[] args) {
 
         EventQueue.invokeLater(() -> {
-            JFrame ex = new SnakeGame();
+            JFrame ex = new SnakeApplication();
             ex.setVisible(true);
         });
     }

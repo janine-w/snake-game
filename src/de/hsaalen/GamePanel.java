@@ -25,7 +25,6 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public Snake snake;
 
-    private int current_snake_size;
     private int apple_x;
     private int apple_y;
 

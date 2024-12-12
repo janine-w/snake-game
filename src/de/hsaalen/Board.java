@@ -17,13 +17,13 @@ import javax.swing.Timer;
 
 public class Board extends JPanel implements ActionListener {
 
-    private final int width_in_pixels = 300;
-    private final int height_in_pixels = 300;
-    private final int tile_size_in_pixels = 10;
-    private final int maximum_snake_length = 900;
+    public final int width_in_pixels = 300;
+    public final int height_in_pixels = 300;
+    public final int tile_size_in_pixels = 10;
+    public final int maximum_snake_length = 900;
     private final int maximum_tile_index_x = 29;
     private final int maximum_tile_index_y = 29;
-    private final int DELAY = 140;
+    public final int DELAY = 140;
 
     private final int x[] = new int[maximum_snake_length];
     private final int y[] = new int[maximum_snake_length];
@@ -187,6 +187,14 @@ public class Board extends JPanel implements ActionListener {
         if (!inGame) {
             timer.stop();
         }
+    }
+
+    public int maximum_tile_index_x(){
+        return (width_in_pixels / tile_size_in_pixels) - 1;
+    }
+
+    public int maximum_tile_index_y(){
+        return (height_in_pixels / tile_size_in_pixels) - 1;
     }
 
     private void locateApple() {

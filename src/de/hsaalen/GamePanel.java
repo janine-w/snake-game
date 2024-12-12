@@ -20,7 +20,6 @@ public class GamePanel extends JPanel implements ActionListener {
     public final int width_in_tiles = 30;
     public final int height_in_tiles = 30;
     public final int tile_size_in_pixels = 10;
-    public final int maximum_snake_length = 900;
     public final int game_loop_duration_in_ms = 140;
     public final int initial_snake_size = 3;
 

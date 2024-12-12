@@ -57,9 +57,20 @@ public class Game
 	private void place_apple_at_random_location() 
 	{
         super_apple = place_super_apple();
-        int apple_x = (int) (Math.random() * width_in_tiles - 1);
-        int apple_y = (int) (Math.random() * height_in_tiles - 1);
-		apple_position = new IntPair( apple_x, apple_y );
+
+        boolean position_found = false;
+        while(!position_found){
+            int apple_x = (int) (Math.random() * width_in_tiles - 1);
+            int apple_y = (int) (Math.random() * height_in_tiles - 1);
+            apple_position = new IntPair( apple_x, apple_y );
+            position_found = true;
+            for(int i=0; i<obstacles.size(); i++){
+                if(apple_position.equals(obstacles.get(i))){
+                    position_found = false;
+                    return;
+                }
+            }
+        }
     }
 
     private boolean place_super_apple(){

@@ -63,18 +63,14 @@ public class GamePanel extends JPanel implements ActionListener {
         super.paintComponent(g);
 
         if(game.inGame){
-            drawGame(g);
+            drawApple(g);
+            drawSnake(g);
+            Toolkit.getDefaultToolkit().sync();
         } else {
-            gameOver(g);
+            drawGameOver(g);
         }
     }
     
-    private void drawGame(Graphics g){
-        drawApple(g);
-        drawSnake(g);
-        Toolkit.getDefaultToolkit().sync();
-    }
-
     private void drawApple(Graphics g){
         IntPair apple_position_in_pixels = pixel_position_of_tile( game.apple_position );
         g.drawImage(apple, apple_position_in_pixels.x, apple_position_in_pixels.y, this);
@@ -94,7 +90,7 @@ public class GamePanel extends JPanel implements ActionListener {
         }
     }   
 
-    private void gameOver(Graphics g) {
+    private void drawGameOver(Graphics g) {
         
         String msg = "Game Over";
         Font small = new Font("Helvetica", Font.BOLD, 14);
@@ -104,7 +100,6 @@ public class GamePanel extends JPanel implements ActionListener {
         g.setFont(small);
         g.drawString(msg, (width_in_pixels() - metr.stringWidth(msg)) / 2, height_in_pixels() / 2);
     }
-
    
     public int width_in_pixels()
 	{

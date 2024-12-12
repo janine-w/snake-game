@@ -15,10 +15,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Board extends JPanel implements ActionListener {
+public class GamePanel extends JPanel implements ActionListener {
 
-    public final int width_in_pixels = 300;
-    public final int height_in_pixels = 300;
+    public final int width_in_tiles = 30;
+    public final int height_in_tiles = 30;
     public final int tile_size_in_pixels = 10;
     public final int maximum_snake_length = 900;
     public final int game_loop_duration_in_ms = 140;
@@ -38,18 +38,13 @@ public class Board extends JPanel implements ActionListener {
     private Image apple;
     private Image head;
 
-    public Board() {
+    public GamePanel() {
         
-        initBoard();
-    }
-    
-    private void initBoard() {
-
         addKeyListener(new TAdapter());
         setBackground(Color.black);
         setFocusable(true);
 
-        setPreferredSize(new Dimension(width_in_pixels, height_in_pixels));
+        setPreferredSize(new Dimension(width_in_pixels(), height_in_pixels()));
         loadImages();
         initGame();
     }
@@ -89,15 +84,21 @@ public class Board extends JPanel implements ActionListener {
     
     private void doDrawing(Graphics g) {
         
-        if (inGame) {
+        if (inGame) 
+		{
+			IntPair apple_position = new IntPair( apple_x, apple_y);
+			IntPair apple_position_in_pixels = pixel_position_of_tile( apple_position );
 
-            g.drawImage(apple, apple_x, apple_y, this);
-
-            for (int i = 0; i < snake.length(); i++) {
-                if (i == 0) {
-                    g.drawImage(head, snake.position(i).x, snake.position(i).y, this);
-                } else {
-                    g.drawImage(ball, snake.position(i).x, snake.position(i).y, this);
+            g.drawImage(apple, apple_position_in_pixels.x, apple_position_in_pixels.y, this);
+            for (int i = 0; i < snake.length(); i++) 
+			{
+				IntPair position_in_pixels = pixel_position_of_tile( snake.position(i) );
+                if (i == 0) 
+				{
+                    g.drawImage(head, position_in_pixels.x, position_in_pixels.y, this);
+                } else 
+				{
+                    g.drawImage(ball, position_in_pixels.x, position_in_pixels.y, this);
                 }
             }
 
@@ -117,7 +118,7 @@ public class Board extends JPanel implements ActionListener {
 
         g.setColor(Color.white);
         g.setFont(small);
-        g.drawString(msg, (width_in_pixels - metr.stringWidth(msg)) / 2, height_in_pixels / 2);
+        g.drawString(msg, (width_in_pixels() - metr.stringWidth(msg)) / 2, height_in_pixels() / 2);
     }
 
     private void checkApple() 
@@ -136,7 +137,7 @@ public class Board extends JPanel implements ActionListener {
 
     private void checkCollision()
 	{
-		if ( snake.is_snake_colliding( width_in_pixels, height_in_pixels) )
+		if ( snake.is_snake_colliding( width_in_tiles, height_in_tiles) )
 			inGame = false;
 
         if (!inGame) {
@@ -145,24 +146,36 @@ public class Board extends JPanel implements ActionListener {
     }
 
     public int maximum_tile_index_x(){
-        return (width_in_pixels / tile_size_in_pixels) - 1;
+        return width_in_tiles - 1;
     }
 
     public int maximum_tile_index_y(){
-        return (height_in_pixels / tile_size_in_pixels) - 1;
+        return height_in_tiles -1;
     }
 
+    public int width_in_pixels()
+	{
+		return width_in_tiles * tile_size_in_pixels;
+	}
+
+	public int height_in_pixels()
+	{
+		return height_in_tiles * tile_size_in_pixels;
+	}
+
+	public IntPair pixel_position_of_tile( IntPair position )
+	{
+		return new IntPair( position.x * tile_size_in_pixels, position.y * tile_size_in_pixels );
+	}
+
     public void place_snake_at_initial_location(){
-        snake = new Snake( 3, tile_size_in_pixels );
+        snake = new Snake(3);
     }
 
     private void place_apple_at_random_location() {
 
-        int r = (int) (Math.random() * maximum_tile_index_x());
-        apple_x = ((r * tile_size_in_pixels));
-
-        r = (int) (Math.random() * maximum_tile_index_y());
-        apple_y = ((r * tile_size_in_pixels));
+        apple_x = (int) (Math.random() * maximum_tile_index_x());
+        apple_y = (int) (Math.random() * maximum_tile_index_y());
     }
 
     @Override

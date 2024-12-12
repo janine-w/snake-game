@@ -9,19 +9,19 @@ public class IntPair {
         this.y = y;
     }
 
-    public void move (Direction direction, int tile_size_in_pixels){
+    public void move (Direction direction){
         switch (direction) {
             case left:
-                x -= tile_size_in_pixels;
+                x -= 1;
                 break;
             case right:
-                x += tile_size_in_pixels;
+                x += 1;
                 break;
             case up:
-                y -= tile_size_in_pixels;
+                y -= 1;
                 break;
             case down:
-                y += tile_size_in_pixels;
+                y += 1;
                 break;
         }
     }

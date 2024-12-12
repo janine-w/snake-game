@@ -21,8 +21,6 @@ public class Board extends JPanel implements ActionListener {
     public final int height_in_pixels = 300;
     public final int tile_size_in_pixels = 10;
     public final int maximum_snake_length = 900;
-    private final int maximum_tile_index_x = 29;
-    private final int maximum_tile_index_y = 29;
     public final int DELAY = 140;
 
     private final int x[] = new int[maximum_snake_length];
